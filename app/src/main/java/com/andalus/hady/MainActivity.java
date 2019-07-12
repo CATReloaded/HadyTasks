@@ -4,47 +4,84 @@ import android.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.SearchView;
+import android.widget.TextView;
+
+import com.andalus.hady.DataWeather.WeatherData;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
 
 public class MainActivity extends AppCompatActivity {
+
+    TextView textView;
+    SearchView searchView;
+    ProgressBar progressBar;
+    Button searchbutton;
+    String search;
+
+    public static double convert(double fahrenheit) {
+
+
+        return fahrenheit -273.15;
+
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        searchView = findViewById(R.id.search_bar);
+        progressBar = findViewById(R.id.progress_circular);
+        textView = findViewById(R.id.returndata);
+        searchbutton = findViewById(R.id.button);
 
 
-        RecyclerView recyclerView = findViewById(R.id.Recycle1);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        Data[] fake = new Data[]{
-                new Data("Youtube",70,R.drawable.youtube),
-                new Data("Instagram",60,R.drawable.instagram),
-                new Data("Itunes",50,R.drawable.itunes),
-                new Data("kik",70,R.drawable.kik),
-                new Data("Skype",55,R.drawable.skype),
-                new Data("Linkedin",70,R.drawable.linkedin),
-                new Data("Messenger",70,R.drawable.messenger),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Whatsapp",70,R.drawable.whatsapp),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Youtube",70,R.drawable.youtube),
-                new Data("Instagram",60,R.drawable.instagram),
-                new Data("Itunes",50,R.drawable.itunes),
-                new Data("kik",70,R.drawable.kik),
-                new Data("Skype",55,R.drawable.skype),
-                new Data("Linkedin",70,R.drawable.linkedin),
-                new Data("Messenger",70,R.drawable.messenger),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Whatsapp",70,R.drawable.whatsapp),
-                new Data("Reddit",70,R.drawable.reddit),
+        searchbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textView.setText("");
+                progressBar.setVisibility(View.VISIBLE);
+                ApiEndPoint endPoint = RetrofitClient.getclient().create(ApiEndPoint.class);
+                Call<WeatherData> connect = endPoint.gWeatherData(searchView.getQuery().toString(), getString(R.string.ApiKey));
+                connect.enqueue(new Callback<WeatherData>() {
+                    @Override
+                    public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
+
+                        String cityname = response.body().getName();
+                        String country = response.body().getSys().getCountry();
+                        Double tempfarh = response.body().getMain().getTemp();
+                        int tempc = (int) convert(tempfarh);
 
 
+                        progressBar.setVisibility(View.INVISIBLE);
+
+                        textView.setText(cityname + "     " + tempc + "°C" + "        " + country);
 
 
-        };
+                    }
 
-        recyclerView.setAdapter(new Adapter(fake));
+                    @Override
+                    public void onFailure(Call<WeatherData> call, Throwable t) {
 
+
+                        progressBar.setVisibility(View.INVISIBLE);
+                        textView.setText("error");
+
+                    }
+                });
+
+            }
+        });
 
 
     }

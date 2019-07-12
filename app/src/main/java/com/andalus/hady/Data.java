@@ -1,27 +1,26 @@
 package com.andalus.hady;
 
 public class Data {
-    private  String Name;
-    private  int Size;
-    private  int Image;
-    public  Data(String name,int size,int image)
+    private  String CityName;
+    private  String Country;
+    private  Double Temp;
+    public  Data(String name,String country,Double temp)
     {
-        Name=name;
-        Size=size;
-        Image=image;
+        CityName=name;
+        Country=country;
+        Temp=temp;
 
     }
 
-
-    public int getImage() {
-        return Image;
+    public Double getTemp() {
+        return Temp;
     }
 
-    public int getSize() {
-        return Size;
+    public String getCityName() {
+        return CityName;
     }
 
-    public String getName() {
-        return Name;
+    public String getCountry() {
+        return Country;
     }
 }
