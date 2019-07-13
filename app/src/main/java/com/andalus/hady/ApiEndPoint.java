@@ -11,7 +11,7 @@ public interface ApiEndPoint {
 
 
     @GET("weather")
-        Call<WeatherData> gWeatherData(@Query("q") String Cityname, @Query("APPID") String ApiKey);
+        Call<WeatherData> gWeatherData(@Query("q") String Cityname);
 
 
 

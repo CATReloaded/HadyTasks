@@ -1,6 +1,7 @@
 package com.andalus.hady;
 
 import android.app.ActionBar;
+import android.app.Application;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Button searchbutton;
     String search;
 
+
     public static double convert(double fahrenheit) {
 
 
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
                 textView.setText("");
                 progressBar.setVisibility(View.VISIBLE);
                 ApiEndPoint endPoint = RetrofitClient.getclient().create(ApiEndPoint.class);
-                Call<WeatherData> connect = endPoint.gWeatherData(searchView.getQuery().toString(), getString(R.string.ApiKey));
+                Call<WeatherData> connect = endPoint.gWeatherData(searchView.getQuery().toString());
                 connect.enqueue(new Callback<WeatherData>() {
                     @Override
                     public void onResponse(Call<WeatherData> call, Response<WeatherData> response) {
