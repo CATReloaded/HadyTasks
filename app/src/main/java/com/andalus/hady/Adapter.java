@@ -9,13 +9,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
+    public interface ListItemOnClickListiner
+    {
+        void onlistitemclick(int ClickedItemIndex);
+
+
+    }
+    final private ListItemOnClickListiner OnItemClickListiner;
+
 
     private Data[] data;
 
-    public Adapter(Data[] data) {
+    public Adapter(Data[] data,ListItemOnClickListiner listItemOnClickListiner) {
         this.data = data;
+        OnItemClickListiner=listItemOnClickListiner;
     }
-    class MainHolder extends RecyclerView.ViewHolder {
+    class MainHolder extends RecyclerView.ViewHolder  {
         ImageView imageView;
         TextView textView, size;
 
@@ -26,8 +35,19 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
             textView = itemView.findViewById(R.id.name);
             size = itemView.findViewById(R.id.size);
 
+
         }
-    }
+        public void bind(final int item, final ListItemOnClickListiner listener) {
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override public void onClick(View v) {
+                    listener.onlistitemclick(item);
+                }
+            });
+        }}
+
+
+
     @NonNull
     @Override
 
@@ -43,6 +63,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
         mainHolder.textView.setText(data[i].getName());
         mainHolder.size.setText(data[i].getSize()+"MB");
         mainHolder.imageView.setImageResource(data[i].getImage());
+        mainHolder.bind(i,OnItemClickListiner);
 
     }
 

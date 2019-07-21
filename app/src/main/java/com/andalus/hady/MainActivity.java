@@ -1,13 +1,14 @@
 package com.andalus.hady;
 
 import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-public class MainActivity extends AppCompatActivity {
-     static Data[] fake;
+public class MainActivity extends AppCompatActivity  {
+    public static Data[] fake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,9 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
         };
 
-        recyclerView.setAdapter(new Adapter(fake));
+        recyclerView.setAdapter(new Adapter(fake, new Adapter.ListItemOnClickListiner() {
+            @Override
+            public void onlistitemclick(int ClickedItemIndex) {
+                Intent go=new Intent(MainActivity.this,Descrption.class);
+                go.putExtra("postion",ClickedItemIndex);
+                startActivity(go);
+
+
+            }
+        }));
+
+
 
 
 
     }
+
+
 }
