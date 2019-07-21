@@ -7,6 +7,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
+     static Data[] fake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,27 +17,28 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.Recycle1);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
-        Data[] fake = new Data[]{
-                new Data("Youtube",70,R.drawable.youtube),
-                new Data("Instagram",60,R.drawable.instagram),
-                new Data("Itunes",50,R.drawable.itunes),
-                new Data("kik",70,R.drawable.kik),
-                new Data("Skype",55,R.drawable.skype),
-                new Data("Linkedin",70,R.drawable.linkedin),
-                new Data("Messenger",70,R.drawable.messenger),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Whatsapp",70,R.drawable.whatsapp),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Youtube",70,R.drawable.youtube),
-                new Data("Instagram",60,R.drawable.instagram),
-                new Data("Itunes",50,R.drawable.itunes),
-                new Data("kik",70,R.drawable.kik),
-                new Data("Skype",55,R.drawable.skype),
-                new Data("Linkedin",70,R.drawable.linkedin),
-                new Data("Messenger",70,R.drawable.messenger),
-                new Data("Reddit",70,R.drawable.reddit),
-                new Data("Whatsapp",70,R.drawable.whatsapp),
-                new Data("Reddit",70,R.drawable.reddit),
+
+        fake =  new Data[]{
+                new Data("Youtube",70,R.drawable.youtube,"Watch videos from all over the world"),
+                new Data("Instagram",60,R.drawable.instagram,"share your videos and photos with your friends"),
+                new Data("Itunes",50,R.drawable.itunes,"Listen the Music"),
+                new Data("kik",70,R.drawable.kik,"Social with Kik"),
+                new Data("Skype",55,R.drawable.skype,"Video calls "),
+                new Data("Linkedin",70,R.drawable.linkedin,"Social Work Network"),
+                new Data("Messenger",70,R.drawable.messenger,"Message your friends on faceook"),
+                new Data("Reddit",70,R.drawable.reddit,"Read Helpful Articles"),
+                new Data("Whatsapp",70,R.drawable.whatsapp,"Talk to your friends just add their Number"),
+                new Data("Youtube",70,R.drawable.youtube,"Watch videos from all over the world"),
+                new Data("Instagram",60,R.drawable.instagram,"share your videos and photos with your friends"),
+                new Data("Itunes",50,R.drawable.itunes,"Listen the Music"),
+                new Data("kik",70,R.drawable.kik,"Social with Kik"),
+                new Data("Skype",55,R.drawable.skype,"Video calls "),
+                new Data("Linkedin",70,R.drawable.linkedin,"Social Work Network"),
+                new Data("Messenger",70,R.drawable.messenger,"Message your friends on faceook"),
+                new Data("Reddit",70,R.drawable.reddit,"Read Helpful Articles"),
+                new Data("Whatsapp",70,R.drawable.whatsapp,"Talk to your friends just add their Number"),
+
+
 
 
 
