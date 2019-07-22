@@ -1,6 +1,9 @@
 package com.andalus.hady;
 
-public class Data {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Data implements Parcelable {
     private  String Name;
     private  int Size;
     private  int Image;
@@ -16,6 +19,25 @@ public class Data {
     }
 
 
+    protected Data(Parcel in) {
+        Name = in.readString();
+        Size = in.readInt();
+        Image = in.readInt();
+        Desc = in.readString();
+    }
+
+    public static final Creator<Data> CREATOR = new Creator<Data>() {
+        @Override
+        public Data createFromParcel(Parcel in) {
+            return new Data(in);
+        }
+
+        @Override
+        public Data[] newArray(int size) {
+            return new Data[size];
+        }
+    };
+
     public int getImage() {
         return Image;
     }
@@ -29,4 +51,17 @@ public class Data {
     }
 
     public String getDesc() { return Desc; }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(Name);
+        dest.writeInt(Size);
+        dest.writeInt(Image);
+        dest.writeString(Desc);
+    }
 }

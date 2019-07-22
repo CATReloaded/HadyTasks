@@ -18,11 +18,10 @@ public class Descrption extends AppCompatActivity {
     @BindView(R.id.descrption)
     TextView Desc;
     @BindView(R.id.image2)
-    ImageView image;
+    ImageView Image;
     @BindView(R.id.Install)
     Button iNSTALL;
 
-    Data[] data=MainActivity.fake;
 
 
 
@@ -32,13 +31,17 @@ public class Descrption extends AppCompatActivity {
         setContentView(R.layout.descrption);
         ButterKnife.bind(this);
 
-        int postion=getIntent().getIntExtra("postion",0);
+        Data data=getIntent().getParcelableExtra("item");
 
+        int image=data.getImage();
+        String name=data.getName();
+        String desc=data.getDesc();
+        int size=data.getSize();
 
-        Name.setText(data[postion].getName());
-        Size.setText(data[postion].getSize()+"MB");
-        Desc.setText(data[postion].getDesc());
-        image.setImageResource(data[postion].getImage());
+        Name.setText(name);
+        Size.setText(Integer.toString(size));
+        Desc.setText(desc);
+        Image.setImageResource(image);
 
 
     }

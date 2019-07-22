@@ -2,6 +2,8 @@ package com.andalus.hady;
 
 import android.app.ActionBar;
 import android.content.Intent;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,6 +12,9 @@ import android.support.v7.widget.RecyclerView;
 public class MainActivity extends AppCompatActivity  {
     public static Data[] fake;
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,7 +22,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
         RecyclerView recyclerView = findViewById(R.id.Recycle1);
-        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
 
         fake =  new Data[]{
                 new Data("Youtube",70,R.drawable.youtube,"Watch videos from all over the world"),
@@ -48,9 +53,9 @@ public class MainActivity extends AppCompatActivity  {
 
         recyclerView.setAdapter(new Adapter(fake, new Adapter.ListItemOnClickListiner() {
             @Override
-            public void onlistitemclick(int ClickedItemIndex) {
+            public void onlistitemclick(Data ClickedItem) {
                 Intent go=new Intent(MainActivity.this,Descrption.class);
-                go.putExtra("postion",ClickedItemIndex);
+                go.putExtra("item",ClickedItem);
                 startActivity(go);
 
 
@@ -62,6 +67,7 @@ public class MainActivity extends AppCompatActivity  {
 
 
     }
+
 
 
 }

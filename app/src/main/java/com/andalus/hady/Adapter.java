@@ -11,7 +11,7 @@ import android.widget.TextView;
 public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
     public interface ListItemOnClickListiner
     {
-        void onlistitemclick(int ClickedItemIndex);
+        void onlistitemclick(Data ClickedItemIndex);
 
 
     }
@@ -37,11 +37,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
 
 
         }
-        public void bind(final int item, final ListItemOnClickListiner listener) {
+        public void bind(final Data[] item, final ListItemOnClickListiner listener) {
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    listener.onlistitemclick(item);
+                    listener.onlistitemclick(item[getAdapterPosition()]);
                 }
             });
         }}
@@ -63,7 +63,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
         mainHolder.textView.setText(data[i].getName());
         mainHolder.size.setText(data[i].getSize()+"MB");
         mainHolder.imageView.setImageResource(data[i].getImage());
-        mainHolder.bind(i,OnItemClickListiner);
+        mainHolder.bind(data,OnItemClickListiner);
 
     }
 
