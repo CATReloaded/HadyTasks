@@ -9,44 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
-    public interface ListItemOnClickListiner
-    {
-        void onlistitemclick(Data ClickedItemIndex);
 
-
-    }
     final private ListItemOnClickListiner OnItemClickListiner;
-
 
     private Data[] data;
 
-    public Adapter(Data[] data,ListItemOnClickListiner listItemOnClickListiner) {
+    public Adapter(Data[] data, ListItemOnClickListiner listItemOnClickListiner) {
         this.data = data;
-        OnItemClickListiner=listItemOnClickListiner;
+        OnItemClickListiner = listItemOnClickListiner;
     }
-    class MainHolder extends RecyclerView.ViewHolder  {
-        ImageView imageView;
-        TextView textView, size;
-
-
-        public MainHolder(@NonNull View itemView) {
-            super(itemView);
-            imageView = itemView.findViewById(R.id.image);
-            textView = itemView.findViewById(R.id.name);
-            size = itemView.findViewById(R.id.size);
-
-
-        }
-        public void bind(final Data[] item, final ListItemOnClickListiner listener) {
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
-                    listener.onlistitemclick(item[getAdapterPosition()]);
-                }
-            });
-        }}
-
-
 
     @NonNull
     @Override
@@ -61,14 +32,32 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MainHolder> {
     @Override
     public void onBindViewHolder(@NonNull Adapter.MainHolder mainHolder, int i) {
         mainHolder.textView.setText(data[i].getName());
-        mainHolder.size.setText(data[i].getSize()+"MB");
+        mainHolder.size.setText(data[i].getSize() + "MB");
         mainHolder.imageView.setImageResource(data[i].getImage());
-        mainHolder.bind(data,OnItemClickListiner);
-
     }
 
     @Override
     public int getItemCount() {
         return data.length;
+    }
+
+    class MainHolder extends RecyclerView.ViewHolder {
+        ImageView imageView;
+        TextView textView, size;
+
+
+        public MainHolder(@NonNull View itemView) {
+            super(itemView);
+            imageView = itemView.findViewById(R.id.image);
+            textView = itemView.findViewById(R.id.name);
+            size = itemView.findViewById(R.id.size);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    OnItemClickListiner.onlistitemclick(data[getAdapterPosition()]);
+                }
+            });
+        }
     }
 }
